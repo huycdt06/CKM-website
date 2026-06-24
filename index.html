@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CKM - Cơ Khí Môi Trường</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  /* ===== RESET & VARIABLES ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:       #0a1f44;
+    --navy-mid:   #122b5e;
+    --navy-light: #1e3f80;
+    --gold:       #d4a017;
+    --gold-light: #f0c040;
+    --gold-pale:  #fdf3d0;
+    --green:      #2e7d32;
+    --green-light:#4caf50;
+    --green-pale: #e8f5e9;
+    --white:      #ffffff;
+    --off-white:  #f5f7fa;
+    --gray-light: #e8eaf0;
+    --gray-mid:   #b0b8cc;
+    --gray-dark:  #4a5270;
+    --text-main:  #1a2340;
+    --text-muted: #5a6280;
+    --accent-red: #c62828;
+  }
+
+  body {
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-main);
+    background: var(--white);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: var(--gold); }
+  ul { list-style: none; }
+  img { max-width: 100%; display: block; }
+
+  /* ===== TOP BAR ===== */
+  .top-bar {
+    background: var(--navy);
+    padding: 6px 0;
+    font-size: 12px;
+    color: var(--gray-mid);
+  }
+  .top-bar .inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .top-bar .contact-strip span {
+    margin-right: 20px;
+  }
+  .top-bar .contact-strip i {
+    color: var(--gold);
+    margin-right: 5px;
+  }
+  .top-bar .social-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px; height: 26px;
+    background: var(--navy-light);
+    border-radius: 4px;
+    margin-left: 6px;
+    font-size: 13px;
+    color: var(--white);
+    transition: background 0.2s;
+  }
+  .top-bar .social-icons a:hover { background: var(--gold); color: var(--navy); }
+
+  /* ===== HEADER ===== */
+  .main-header {
+    background: var(--white);
+    border-bottom: 3px solid var(--gold);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(10,31,68,0.10);
+  }
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 75px;
+  }
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .logo-badge {
+    width: 56px; height: 56px;
+    background: var(--navy);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 2px solid var(--gold);
+  }
+  .logo-badge .ckm-text {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--gold);
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+  .logo-badge .ckm-line {
+    width: 32px;
+    height: 2px;
+    background: var(--green-light);
+    margin-top: 3px;
+  }
+  .logo-text .company-name {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.1;
+  }
+  .logo-text .company-name span { color: var(--gold); }
+  .logo-text .company-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ===== NAV ===== */
+  nav ul {
+    display: flex;
+    gap: 2px;
+  }
+  nav ul li { position: relative; }
+  nav ul li a {
+    display: block;
+    padding: 10px 16px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--navy);
+    border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+  }
+  nav ul li a:hover,
+  nav ul li.active > a {
+    background: var(--navy);
+    color: var(--gold);
+  }
+  nav ul li.has-sub > a::after {
+    content: ' ▾';
+    font-size: 10px;
+    opacity: 0.6;
+  }
+  .sub-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--white);
+    min-width: 240px;
+    border-top: 2px solid var(--gold);
+    border: 1px solid var(--gray-light);
+    border-top: 3px solid var(--gold);
+    box-shadow: 0 4px 16px rgba(10,31,68,0.15);
+    z-index: 200;
+  }
+  nav ul li:hover .sub-menu { display: block; }
+  .sub-menu li a {
+    border-radius: 0;
+    padding: 9px 18px;
+    font-size: 12px;
+    color: var(--text-main);
+    border-bottom: 1px solid var(--gray-light);
+  }
+  .sub-menu li:last-child a { border-bottom: none; }
+  .sub-menu li a:hover { background: var(--gold-pale); color: var(--navy); }
+
+  /* ===== HERO / BANNER ===== */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 50%, #0d2d5e 100%);
+    color: var(--white);
+    padding: 70px 20px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -60px;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    background: rgba(212,160,23,0.07);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -60px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: rgba(46,125,50,0.08);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .hero-eyebrow {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 3px;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 42px;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1.15;
+    letter-spacing: 0.5px;
+    margin-bottom: 18px;
+  }
+  .hero h1 span { color: var(--gold-light); }
+  .hero p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.80);
+    margin-bottom: 30px;
+    line-height: 1.7;
+    max-width: 480px;
+  }
+  .hero-btns {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy);
+    padding: 12px 28px;
+    border-radius: 4px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-light); color: var(--navy); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid rgba(255,255,255,0.35);
+    padding: 11px 28px;
+    border-radius: 4px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: border-color 0.2s, background 0.2s;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); background: rgba(212,160,23,0.08); }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-top: 3px solid var(--gold);
+    border-radius: 6px;
+    padding: 22px 18px;
+    text-align: center;
+  }
+  .stat-card .num {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1;
+  }
+  .stat-card .unit { font-size: 16px; color: var(--gold); }
+  .stat-card .label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.65);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 6px;
+  }
+
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb {
+    background: var(--gray-light);
+    border-bottom: 1px solid #d0d6e8;
+    padding: 10px 0;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .breadcrumb .inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  .breadcrumb a { color: var(--navy-light); }
+  .breadcrumb a:hover { color: var(--gold); }
+  .breadcrumb .sep { margin: 0 8px; color: var(--gray-mid); }
+
+  /* ===== SERVICES STRIP ===== */
+  .services-strip {
+    background: var(--off-white);
+    border-bottom: 1px solid var(--gray-light);
+    padding: 40px 20px;
+  }
+  .services-strip .inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .section-header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .section-header .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 8px;
+  }
+  .section-header h2 {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--navy);
+  }
+  .section-header .divider {
+    width: 50px;
+    height: 3px;
+    background: var(--gold);
+    margin: 10px auto 0;
+    border-radius: 2px;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .service-card {
+    background: var(--white);
+    border: 1px solid var(--gray-light);
+    border-top: 4px solid var(--navy);
+    border-radius: 6px;
+    padding: 24px 20px;
+    transition: border-top-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  }
+  .service-card:hover {
+    border-top-color: var(--gold);
+    box-shadow: 0 4px 20px rgba(10,31,68,0.10);
+    transform: translateY(-3px);
+  }
+  .service-icon {
+    width: 48px; height: 48px;
+    background: var(--navy);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+    font-size: 22px;
+    color: var(--gold);
+  }
+  .service-card h3 {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .service-card p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ===== PROJECTS SECTION ===== */
+  .projects-section {
+    padding: 60px 20px;
+    background: var(--white);
+  }
+  .projects-section .inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .project-card {
+    background: var(--white);
+    border: 1px solid var(--gray-light);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .project-card:hover {
+    box-shadow: 0 6px 24px rgba(10,31,68,0.13);
+    transform: translateY(-4px);
+  }
+  .project-img {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    background: var(--gray-light);
+  }
+  .project-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+  .project-card:hover .project-img img { transform: scale(1.05); }
+  .project-img .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10,31,68,0.65);
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    transition: opacity 0.25s;
+  }
+  .project-card:hover .overlay { opacity: 1; }
+  .overlay-btn {
+    width: 40px; height: 40px;
+    background: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: var(--navy);
+    transition: background 0.2s, color 0.2s;
+  }
+  .overlay-btn:hover { background: var(--gold); color: var(--navy); }
+  .project-tag {
+    position: absolute;
+    top: 10px; left: 10px;
+    background: var(--green);
+    color: var(--white);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 3px;
+  }
+  .project-info {
+    padding: 16px 18px 20px;
+  }
+  .project-info h4 {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 6px;
+    line-height: 1.35;
+  }
+  .project-info h4 a:hover { color: var(--gold); }
+  .project-info p {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+  .no-image-placeholder {
+    width: 100%; height: 100%;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ===== LOAD MORE ===== */
+  .load-more-wrap {
+    text-align: center;
+    margin-top: 40px;
+  }
+  .btn-load-more {
+    display: inline-block;
+    background: var(--navy);
+    color: var(--white);
+    padding: 13px 40px;
+    border-radius: 4px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 2px solid var(--navy);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .btn-load-more:hover {
+    background: transparent;
+    color: var(--navy);
+  }
+
+  /* ===== WHY US ===== */
+  .why-us {
+    background: var(--navy);
+    color: var(--white);
+    padding: 60px 20px;
+  }
+  .why-us .inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .why-us h2 {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 14px;
+  }
+  .why-us h2 span { color: var(--gold-light); }
+  .why-us .sub-text {
+    font-size: 14px;
+    color: rgba(255,255,255,0.70);
+    margin-bottom: 28px;
+    line-height: 1.7;
+  }
+  .why-divider {
+    width: 44px; height: 3px;
+    background: var(--gold);
+    margin-bottom: 28px;
+    border-radius: 2px;
+  }
+  .feature-list { display: flex; flex-direction: column; gap: 14px; }
+  .feature-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .feat-icon {
+    width: 36px; height: 36px;
+    background: rgba(212,160,23,0.15);
+    border: 1px solid var(--gold);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+  .feat-text h4 {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 3px;
+  }
+  .feat-text p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.60);
+    line-height: 1.5;
+  }
+  .process-steps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .step-box {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-left: 3px solid var(--gold);
+    border-radius: 6px;
+    padding: 16px 14px;
+  }
+  .step-num {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 6px;
+    opacity: 0.7;
+  }
+  .step-box h5 {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .step-box p {
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.5;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer-main {
+    background: #08183a;
+    color: rgba(255,255,255,0.75);
+    padding: 50px 20px 30px;
+  }
+  .footer-main .inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 40px;
+  }
+  .footer-col h3 {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gold);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(212,160,23,0.25);
+  }
+  .footer-col p {
+    font-size: 13px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.60);
+    margin-bottom: 14px;
+  }
+  .footer-col ul li {
+    margin-bottom: 8px;
+  }
+  .footer-col ul li a {
+    font-size: 13px;
+    color: rgba(255,255,255,0.60);
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .footer-col ul li a::before {
+    content: '›';
+    color: var(--gold);
+    font-size: 16px;
+  }
+  .footer-col ul li a:hover { color: var(--gold); }
+  .contact-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+    align-items: flex-start;
+  }
+  .contact-item .ci-icon {
+    color: var(--gold);
+    font-size: 15px;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+  .footer-logo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .flb-box {
+    width: 44px; height: 44px;
+    background: var(--navy);
+    border: 2px solid var(--gold);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--gold);
+  }
+  .flb-name {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+  .flb-name span { color: var(--gold); display: block; font-size: 10px; letter-spacing: 1.5px; }
+
+  .footer-copyright {
+    background: #040e22;
+    text-align: center;
+    padding: 16px 20px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+  }
+  .footer-copyright a { color: var(--gold); }
+
+  /* ===== PHONE FLOAT ===== */
+  .float-phone {
+    position: fixed;
+    bottom: 24px; left: 18px;
+    width: 50px; height: 50px;
+    background: var(--green);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: var(--white);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+    z-index: 999;
+    transition: background 0.2s, transform 0.2s;
+    animation: pulse-ring 2s infinite;
+  }
+  .float-phone:hover { background: var(--gold); color: var(--navy); transform: scale(1.1); }
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgba(76,175,80,0.5); }
+    70% { box-shadow: 0 0 0 12px rgba(76,175,80,0); }
+    100% { box-shadow: 0 0 0 0 rgba(76,175,80,0); }
+  }
+
+  /* ===== INLINE SVG ICONS (lightweight) ===== */
+  .ico { display:inline-block; vertical-align:middle; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .projects-grid { grid-template-columns: 1fr 1fr; }
+    .why-us .inner { grid-template-columns: 1fr; gap: 40px; }
+    .footer-main .inner { grid-template-columns: 1fr 1fr; gap: 28px; }
+  }
+  @media (max-width: 600px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr; }
+    .footer-main .inner { grid-template-columns: 1fr; }
+    nav { display: none; }
+    .hero h1 { font-size: 28px; }
+    .top-bar .contact-strip { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== TOP BAR ===== -->
+<div class="top-bar">
+  <div class="inner">
+    <div class="contact-strip">
+      <span>📞 0909 433 739</span>
+      <span>✉ cokhimoitruongckm@gmail.com</span>
+      <span>📍 205/5D Quốc Lộ 1A, Q.12, TP.HCM</span>
+    </div>
+    <div class="social-icons">
+      <a href="#" title="Facebook">f</a>
+      <a href="#" title="YouTube">▶</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header class="main-header">
+  <div class="header-inner">
+    <div class="logo-area">
+      <div class="logo-badge">
+        <div class="ckm-text">CKM</div>
+        <div class="ckm-line"></div>
+      </div>
+      <div class="logo-text">
+        <div class="company-name">Cơ Khí <span>Môi Trường</span></div>
+        <div class="company-sub">Waste Water Treatment System</div>
+      </div>
+    </div>
+    <nav>
+      <ul>
+        <li class="active"><a href="#">Trang chủ</a></li>
+        <li><a href="#">Giới thiệu</a></li>
+        <li class="has-sub">
+          <a href="#">Thi Công</a>
+          <ul class="sub-menu">
+            <li><a href="#">Xử lý nước thải</a></li>
+            <li><a href="#">Xử lý nước cấp</a></li>
+            <li><a href="#">Xử lý khí thải</a></li>
+            <li><a href="#">Cơ khí công nghiệp</a></li>
+            <li><a href="#">Hàn kết cấu</a></li>
+            <li><a href="#">Tủ điện điều khiển</a></li>
+            <li><a href="#">Tư vấn môi trường</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Sản phẩm</a></li>
+        <li class="has-sub">
+          <a href="#">Công trình</a>
+          <ul class="sub-menu">
+            <li><a href="#">Thi Công Lắp Đặt</a></li>
+            <li><a href="#">Chế Tạo</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Liên hệ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Chuyên nghiệp – Uy tín – Chất lượng</div>
+      <h1>Cơ Khí<br><span>Môi Trường</span><br>CKM</h1>
+      <p>Thiết kế, thi công, lắp đặt hệ thống xử lý nước thải – nước cấp – khí thải. Gia công cơ khí, kết cấu hàn và tủ điện điều khiển công nghiệp cho mọi quy mô nhà máy.</p>
+      <div class="hero-btns">
+        <a href="#" class="btn-primary">Xem dự án</a>
+        <a href="#" class="btn-outline">Liên hệ tư vấn</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stats">
+        <div class="stat-card">
+          <div class="num">10<span class="unit">+</span></div>
+          <div class="label">Năm kinh nghiệm</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">200<span class="unit">+</span></div>
+          <div class="label">Công trình hoàn thành</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">50<span class="unit">+</span></div>
+          <div class="label">Khách hàng tin tưởng</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">3</div>
+          <div class="label">Lĩnh vực chuyên sâu</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BREADCRUMB ===== -->
+<div class="breadcrumb">
+  <div class="inner">
+    <a href="#">Trang chủ</a>
+    <span class="sep">/</span>
+    <strong>Công trình</strong>
+  </div>
+</div>
+
+<!-- ===== SERVICES STRIP ===== -->
+<section class="services-strip">
+  <div class="inner">
+    <div class="section-header">
+      <div class="eyebrow">Lĩnh vực chuyên môn</div>
+      <h2>Dịch vụ của chúng tôi</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-icon">⚙</div>
+        <h3>Thiết bị cơ khí</h3>
+        <p>Gia công, chế tạo thiết bị cơ khí công nghiệp: bể tuyển nổi DAF, máy tách rác trống quay, song chắn rác, bơm, đường ống inox và thép không gỉ.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🔥</div>
+        <h3>Hàn kết cấu</h3>
+        <p>Thi công hàn kết cấu thép, bồn chứa inox, khung giá đỡ, đường ống áp lực theo tiêu chuẩn kỹ thuật. Đội ngũ thợ hàn lành nghề, kiểm tra chất lượng nghiêm ngặt.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">⚡</div>
+        <h3>Tủ điện điều khiển</h3>
+        <p>Thiết kế và lắp ráp tủ điện điều khiển hệ thống xử lý môi trường: tủ MCC, tủ PLC, tủ SCADA, tủ tự động hóa cho nhà máy xử lý nước thải và khí thải.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">💧</div>
+        <h3>Xử lý nước thải</h3>
+        <p>Thiết kế và thi công hệ thống xử lý nước thải công nghiệp, dệt nhuộm, thực phẩm, y tế. Đảm bảo đạt chuẩn QCVN trước khi xả ra môi trường.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🌿</div>
+        <h3>Xử lý khí thải</h3>
+        <p>Lắp đặt hệ thống xử lý khí thải lò hơi, khí thải sản xuất. Giảm thiểu ô nhiễm không khí, đáp ứng tiêu chuẩn môi trường Việt Nam và quốc tế.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🔬</div>
+        <h3>Tư vấn môi trường</h3>
+        <p>Tư vấn lập hồ sơ môi trường, quan trắc định kỳ, nâng cấp và sửa chữa hệ thống XLMT hiện có. Hỗ trợ doanh nghiệp tuân thủ pháp luật môi trường.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROJECTS ===== -->
+<section class="projects-section">
+  <div class="inner">
+    <div class="section-header">
+      <div class="eyebrow">Portfolio</div>
+      <h2>Dự án của chúng tôi</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-img">
+          <img src="https://moitruongngocthy.com/wp-content/uploads/2025/11/z7205602336485_7a8fe22784b077dc5c6397467e38fe39.jpg" alt="Máy tách rác trống quay CKM" onerror="this.parentElement.innerHTML='<div class=\'no-image-placeholder\'>CKM</div>'">
+          <div class="overlay">
+            <a href="#" class="overlay-btn">🔍</a>
+            <a href="#" class="overlay-btn">🔗</a>
+          </div>
+          <span class="project-tag">Cơ khí</span>
+        </div>
+        <div class="project-info">
+          <h4><a href="#">Máy tách rác trống quay CKM</a></h4>
+          <p>Giải pháp hiệu quả cho hệ thống xử lý nước thải – loại bỏ rác thô trước khi vào bể xử lý sinh học.</p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-img">
+          <img src="https://moitruongngocthy.com/wp-content/uploads/2025/11/z7201829024477_3061899bf774ad428c07c19e68cb03b0-3.jpg" alt="Bể tuyển nổi DAF CKM" onerror="this.parentElement.innerHTML='<div class=\'no-image-placeholder\'>CKM</div>'">
+          <div class="overlay">
+            <a href="#" class="overlay-btn">🔍</a>
+            <a href="#" class="overlay-btn">🔗</a>
+          </div>
+          <span class="project-tag">Thiết bị</span>
+        </div>
+        <div class="project-info">
+          <h4><a href="#">Bể tuyển nổi DAF CKM</a></h4>
+          <p>Giải pháp hiệu quả cho hệ thống xử lý nước thải công nghiệp – vớt bọt và tách dầu mỡ triệt để.</p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-img">
+          <img src="https://moitruongngocthy.com/wp-content/uploads/2025/11/DAF.jpg" alt="Bể tuyển nổi" onerror="this.parentElement.innerHTML='<div class=\'no-image-placeholder\'>CKM</div>'">
+          <div class="overlay">
+            <a href="#" class="overlay-btn">🔍</a>
+            <a href="#" class="overlay-btn">🔗</a>
+          </div>
+          <span class="project-tag">Thiết bị</span>
+        </div>
+        <div class="project-info">
+          <h4><a href="#">Bể tuyển nổi vớt bọt dạng tròn</a></h4>
+          <p>Chế tạo và lắp đặt bể tuyển nổi dạng tròn, phù hợp với nhà máy quy mô vừa và lớn.</p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-img">
+          <div class="no-image-placeholder">HỆ THỐNG DỆT NHUỘM</div>
+          <div class="overlay">
+            <a href="#" class="overlay-btn">🔍</a>
+            <a href="#" class="overlay-btn">🔗</a>
+          </div>
+          <span class="project-tag">Nước thải</span>
+        </div>
+        <div class="project-info">
+          <h4><a href="#">Hệ thống xử lý nước thải dệt nhuộm</a></h4>
+          <p>Thiết kế, thi công, lắp đặt hệ thống XLNT ngành dệt nhuộm đạt chuẩn QCVN 13.</p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-img">
+          <img src="https://moitruongngocthy.com/wp-content/uploads/2021/01/2-14.png" alt="Gia công cơ khí và lắp đặt nhà máy" onerror="this.parentElement.innerHTML='<div class=\'no-image-placeholder\'>CKM</div>'">
+          <div class="overlay">
+            <a href="#" class="overlay-btn">🔍</a>
+            <a href="#" class="overlay-btn">🔗</a>
+          </div>
+          <span class="project-tag">Lắp đặt</span>
+        </div>
+        <div class="project-info">
+          <h4><a href="#">Gia công cơ khí và lắp đặt nhà máy</a></h4>
+          <p>Hệ thống xử lý nước thải tổng kho xăng PVOIL Nhà Bè – gia công và lắp đặt hoàn chỉnh.</p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-img">
+          <img src="https://moitruongngocthy.com/wp-content/uploads/2021/01/1-11.png" alt="Nhà máy XLNT tập trung" onerror="this.parentElement.innerHTML='<div class=\'no-image-placeholder\'>CKM</div>'">
+          <div class="overlay">
+            <a href="#" class="overlay-btn">🔍</a>
+            <a href="#" class="overlay-btn">🔗</a>
+          </div>
+          <span class="project-tag">KCN</span>
+        </div>
+        <div class="project-info">
+          <h4><a href="#">Nhà máy XLNT tập trung KCN Lê Minh Xuân</a></h4>
+          <p>Gia công cơ khí và lắp đặt nhà máy xử lý nước thải tập trung cho khu công nghiệp.</p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-img">
+          <div class="no-image-placeholder">KHÍ THẢI LÒ HƠI</div>
+          <div class="overlay">
+            <a href="#" class="overlay-btn">🔍</a>
+            <a href="#" class="overlay-btn">🔗</a>
+          </div>
+          <span class="project-tag">Khí thải</span>
+        </div>
+        <div class="project-info">
+          <h4><a href="#">Hệ thống xử lý khí thải lò hơi</a></h4>
+          <p>Thiết kế, thi công, lắp đặt, gia công cơ khí hệ thống xử lý khí thải lò hơi công nghiệp.</p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-img">
+          <img src="https://moitruongngocthy.com/wp-content/uploads/2021/01/1-9.png" alt="Hệ thống xử lý khí thải lò hơi" onerror="this.parentElement.innerHTML='<div class=\'no-image-placeholder\'>CKM</div>'">
+          <div class="overlay">
+            <a href="#" class="overlay-btn">🔍</a>
+            <a href="#" class="overlay-btn">🔗</a>
+          </div>
+          <span class="project-tag">Khí thải</span>
+        </div>
+        <div class="project-info">
+          <h4><a href="#">Xử lý khí thải lò hơi – giai đoạn 2</a></h4>
+          <p>Mở rộng hệ thống lọc bụi, khử SO₂ và NOx cho nhà máy sản xuất công suất lớn.</p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-img">
+          <img src="https://moitruongngocthy.com/wp-content/uploads/2021/01/4-3.png" alt="Hệ thống xử lý nước cấp nhà máy nước giải khát" onerror="this.parentElement.innerHTML='<div class=\'no-image-placeholder\'>CKM</div>'">
+          <div class="overlay">
+            <a href="#" class="overlay-btn">🔍</a>
+            <a href="#" class="overlay-btn">🔗</a>
+          </div>
+          <span class="project-tag">Nước cấp</span>
+        </div>
+        <div class="project-info">
+          <h4><a href="#">Hệ thống xử lý nước cấp – nhà máy nước giải khát</a></h4>
+          <p>Thiết kế, thi công, lắp đặt hệ thống XLNC đạt tiêu chuẩn thực phẩm cho nhà máy nước uống.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="load-more-wrap">
+      <button class="btn-load-more">Xem thêm dự án</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHY US ===== -->
+<section class="why-us">
+  <div class="inner">
+    <div>
+      <h2>Tại sao chọn<br><span>CKM?</span></h2>
+      <div class="why-divider"></div>
+      <p class="sub-text">Với hơn 10 năm kinh nghiệm trong lĩnh vực cơ khí và môi trường, CKM cam kết mang lại giải pháp tối ưu, đúng tiến độ và đảm bảo tiêu chuẩn kỹ thuật.</p>
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="feat-icon">✓</div>
+          <div class="feat-text">
+            <h4>Đội ngũ chuyên nghiệp</h4>
+            <p>Kỹ sư và công nhân lành nghề, được đào tạo bài bản trong lĩnh vực cơ khí và môi trường.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feat-icon">🏭</div>
+          <div class="feat-text">
+            <h4>Xưởng gia công hiện đại</h4>
+            <p>Trang bị máy móc hiện đại, đáp ứng yêu cầu chế tạo thiết bị chính xác và bền bỉ.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feat-icon">📋</div>
+          <div class="feat-text">
+            <h4>Giải pháp trọn gói</h4>
+            <p>Từ tư vấn thiết kế, gia công cơ khí, hàn kết cấu đến lắp đặt tủ điện và vận hành bàn giao.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feat-icon">🛡</div>
+          <div class="feat-text">
+            <h4>Bảo hành uy tín</h4>
+            <p>Cam kết bảo hành thiết bị và hệ thống, hỗ trợ kỹ thuật nhanh chóng sau bàn giao.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="process-steps">
+        <div class="step-box">
+          <div class="step-num">01</div>
+          <h5>Khảo sát & Tư vấn</h5>
+          <p>Đánh giá nhu cầu, khảo sát hiện trạng và đề xuất giải pháp phù hợp nhất.</p>
+        </div>
+        <div class="step-box">
+          <div class="step-num">02</div>
+          <h5>Thiết kế kỹ thuật</h5>
+          <p>Lập hồ sơ thiết kế chi tiết, bản vẽ kỹ thuật và dự toán công trình.</p>
+        </div>
+        <div class="step-box">
+          <div class="step-num">03</div>
+          <h5>Gia công & Chế tạo</h5>
+          <p>Sản xuất thiết bị tại xưởng, kiểm tra chất lượng trước khi xuất xưởng.</p>
+        </div>
+        <div class="step-box">
+          <div class="step-num">04</div>
+          <h5>Lắp đặt & Vận hành</h5>
+          <p>Thi công lắp đặt tại công trình, chạy thử nghiệm và bàn giao hoàn chỉnh.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer-main">
+  <div class="inner">
+    <div class="footer-col">
+      <div class="footer-logo-badge">
+        <div class="flb-box">CKM</div>
+        <div class="flb-name">
+          Cơ Khí Môi Trường
+          <span>Waste Water Treatment System</span>
+        </div>
+      </div>
+      <p>Công ty chuyên thi công, lắp đặt hệ thống xử lý môi trường và gia công cơ khí công nghiệp. Cam kết chất lượng – đúng tiến độ – giá cạnh tranh.</p>
+    </div>
+
+    <div class="footer-col">
+      <h3>Lĩnh vực hoạt động</h3>
+      <ul>
+        <li><a href="#">Xử lý nước thải</a></li>
+        <li><a href="#">Xử lý nước cấp</a></li>
+        <li><a href="#">Xử lý khí thải</a></li>
+        <li><a href="#">Cơ khí công nghiệp</a></li>
+        <li><a href="#">Hàn kết cấu</a></li>
+        <li><a href="#">Tủ điện điều khiển</a></li>
+        <li><a href="#">Tư vấn môi trường</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h3>Hỗ trợ</h3>
+      <ul>
+        <li><a href="#">Chính sách bảo hành</a></li>
+        <li><a href="#">Chính sách bảo mật</a></li>
+        <li><a href="#">Điều khoản sử dụng</a></li>
+        <li><a href="#">Phương thức thanh toán</a></li>
+        <li><a href="#">Tuyển dụng</a></li>
+        <li><a href="#">Liên hệ</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h3>Liên hệ</h3>
+      <div class="contact-item">
+        <span class="ci-icon">📍</span>
+        <span>205/5D Quốc Lộ 1A, KP1, P. Tân Chánh Hiệp, Q.12, TP.HCM</span>
+      </div>
+      <div class="contact-item">
+        <span class="ci-icon">📞</span>
+        <span>0909 433 739 (Anh Định)<br>0963 161 439 (Anh Vương)</span>
+      </div>
+      <div class="contact-item">
+        <span class="ci-icon">📠</span>
+        <span>028 225 36707</span>
+      </div>
+      <div class="contact-item">
+        <span class="ci-icon">✉</span>
+        <span>cokhimoitruongckm@gmail.com</span>
+      </div>
+    </div>
+  </div>
+</footer>
+<div class="footer-copyright">
+  Copyright © 2024 CKM – Cơ Khí Môi Trường. All rights reserved.
+</div>
+
+<!-- ===== FLOATING PHONE ===== -->
+<a href="tel:0909433739" class="float-phone" title="Gọi ngay: 0909 433 739">📞</a>
+
+</body>
+</html>
