@@ -18,7 +18,7 @@
   .topbar .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.5px;}
   .topbar .brand .badge{width:34px;height:34px;border:2px solid var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--gold);font-weight:700;font-size:14px;}
   .topbar .actions{display:flex;gap:8px;align-items:center;}
-  .wrap{max-width:900px;margin:0 auto;padding:22px 16px 80px;}
+  .wrap{max-width:900px;margin:0 auto;padding:22px 16px 90px;}
   .card{background:#fff;border:1px solid var(--gray-light);border-radius:8px;padding:18px;margin-bottom:16px;box-shadow:0 1px 4px rgba(10,31,68,.05);}
   h2{font-size:16px;text-transform:uppercase;letter-spacing:.5px;color:var(--navy);margin-bottom:10px;border-left:4px solid var(--gold);padding-left:10px;}
   label{display:block;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--text-muted);margin:10px 0 4px;}
@@ -40,13 +40,13 @@
   .muted{color:var(--text-muted);font-size:12.5px;}
   .hint{background:#fff8e1;border:1px solid #f0d488;border-radius:6px;padding:10px 12px;font-size:12.5px;color:#7a5b00;margin-top:8px;}
   .row{display:flex;gap:10px;flex-wrap:wrap;}
-  .row>*{flex:1;min-width:160px;}
-  .proj{border:1px solid var(--gray-light);border-radius:8px;padding:14px;margin-bottom:14px;background:#fff;position:relative;}
-  .proj-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;}
-  .proj-head .idx{font-weight:700;color:var(--navy);font-size:13px;}
-  .proj-head .tools{display:flex;gap:6px;}
+  .row>*{flex:1;min-width:150px;}
+  .item{border:1px solid var(--gray-light);border-radius:8px;padding:14px;margin-bottom:14px;background:#fff;}
+  .item-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;}
+  .item-head .idx{font-weight:700;color:var(--navy);font-size:13px;}
+  .item-head .tools{display:flex;gap:6px;}
   .thumb-area{display:flex;gap:12px;align-items:flex-start;margin-top:8px;flex-wrap:wrap;}
-  .thumb{width:150px;height:90px;border-radius:6px;overflow:hidden;border:1px solid var(--gray-light);background:var(--navy);display:flex;align-items:center;justify-content:center;color:var(--gold);font-weight:700;font-size:11px;text-align:center;flex-shrink:0;}
+  .thumb{width:150px;height:90px;border-radius:6px;overflow:hidden;border:1px solid var(--gray-light);background:var(--navy);display:flex;align-items:center;justify-content:center;color:var(--gold);font-weight:700;font-size:18px;text-align:center;flex-shrink:0;}
   .thumb img{width:100%;height:100%;object-fit:cover;}
   .thumb-controls{flex:1;min-width:180px;}
   .status{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:11px 20px;border-radius:6px;font-size:13px;box-shadow:0 4px 18px rgba(0,0,0,.3);display:none;z-index:100;max-width:90%;}
@@ -56,7 +56,6 @@
   .savebar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--gray-light);padding:12px 16px;display:flex;justify-content:center;gap:10px;box-shadow:0 -2px 12px rgba(10,31,68,.08);z-index:40;}
   .hidden{display:none!important;}
   code{background:#eef1f7;padding:1px 5px;border-radius:3px;font-size:12px;}
-  .step{margin:4px 0 4px 4px;}
 </style>
 </head>
 <body>
@@ -81,20 +80,28 @@
       <button class="btn btn-navy" id="connectBtn">Kết nối &amp; tải nội dung</button>
     </div>
     <div class="hint">
-      <b>Chưa có khóa?</b> Tạo một lần tại:
-      GitHub → Settings → Developer settings → Fine-grained tokens → Generate new token.
-      Chọn repository <code>huycdt06/CKM-website</code>, quyền <b>Contents: Read and write</b>. Xem hướng dẫn chi tiết trong file <code>HUONG-DAN.md</code>.
+      <b>Chưa có khóa?</b> Tạo một lần tại: GitHub → ảnh đại diện → Settings → (cuối trang) Developer settings → Personal access tokens → Fine-grained tokens → Generate new token.
+      Chọn repository <code>huycdt06/CKM-website</code>, quyền <b>Contents: Read and write</b>. Xem chi tiết trong <code>HUONG-DAN.md</code>.
     </div>
   </div>
 
   <!-- ===== EDITOR ===== -->
   <div id="editor" class="hidden">
+
     <div class="card">
-      <h2>Danh sách công trình / dự án</h2>
-      <p class="muted">Thêm ảnh và mô tả cho từng công trình. Ảnh chưa tải lên sẽ hiển thị ô giữ chỗ trên website.</p>
-      <div id="projList"></div>
-      <button class="btn btn-ghost" id="addBtn">➕ Thêm dự án mới</button>
+      <h2>Dịch vụ của chúng tôi</h2>
+      <p class="muted">Thêm ảnh và mô tả cho từng dịch vụ. Ảnh chưa tải lên sẽ hiển thị ô giữ chỗ.</p>
+      <div id="list-services"></div>
+      <button class="btn btn-ghost" data-add="services">➕ Thêm dịch vụ mới</button>
     </div>
+
+    <div class="card">
+      <h2>Công trình / Dự án</h2>
+      <p class="muted">Thêm ảnh và mô tả cho từng công trình.</p>
+      <div id="list-projects"></div>
+      <button class="btn btn-ghost" data-add="projects">➕ Thêm dự án mới</button>
+    </div>
+
   </div>
 </div>
 
@@ -110,9 +117,33 @@
   var CFG = { owner:'huycdt06', repo:'CKM-website', branch:'main', path:'content.json' };
   var TOKEN_KEY = 'ckm_gh_token';
 
-  var state = { projects:[], sha:null, files:{} }; // files: idx -> File pending upload
+  var SECTIONS = {
+    services: {
+      label:'Dịch vụ',
+      newItem: function(){ return { icon:'⚙', title:'Dịch vụ mới', description:'', image:'' }; },
+      fields: [
+        { name:'title', label:'Tên dịch vụ' },
+        { name:'icon',  label:'Biểu tượng (emoji)', small:true }
+      ],
+      placeholder: function(it){ return it.icon || 'CKM'; }
+    },
+    projects: {
+      label:'Dự án',
+      newItem: function(){ return { title:'Công trình mới', category:'Mới', description:'', image:'' }; },
+      fields: [
+        { name:'title',    label:'Tên công trình' },
+        { name:'category', label:'Nhãn (loại)', small:true }
+      ],
+      placeholder: function(it){ return it.category || 'CKM'; }
+    }
+  };
 
-  // ---------- helpers ----------
+  var state = {
+    data: { services:[], projects:[] },
+    sha: null,
+    files: { services:{}, projects:{} }   // section -> {index: File}
+  };
+
   function $(id){ return document.getElementById(id); }
   function token(){ return localStorage.getItem(TOKEN_KEY) || ''; }
   function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
@@ -148,9 +179,7 @@
       var r=new FileReader(); r.onload=function(){res(r.result);}; r.onerror=rej; r.readAsDataURL(file);
     });
   }
-  function safeName(name){
-    return name.toLowerCase().replace(/[^a-z0-9.]+/g,'-').replace(/^-+|-+$/g,'');
-  }
+  function safeName(name){ return String(name).toLowerCase().replace(/[^a-z0-9.]+/g,'-').replace(/^-+|-+$/g,''); }
 
   function api(path, opts){
     opts = opts || {};
@@ -167,157 +196,157 @@
     status('Đang tải nội dung...');
     api('contents/'+CFG.path+'?ref='+CFG.branch+'&_='+Date.now())
       .then(function(r){
-        if(r.status===401) throw new Error('Khóa không hợp lệ hoặc hết hạn. Vui lòng kiểm tra lại token.');
-        if(r.status===404){ state.sha=null; return { content: btoa('{"projects":[]}') }; }
+        if(r.status===401) throw new Error('Khóa không hợp lệ hoặc hết hạn. Kiểm tra lại token.');
+        if(r.status===404){ state.sha=null; return { content: btoa('{}') }; }
         if(!r.ok) throw new Error('Lỗi tải nội dung (HTTP '+r.status+').');
         return r.json();
       })
       .then(function(data){
         if(data.sha) state.sha = data.sha;
-        var json = JSON.parse(b64ToUtf8(data.content));
-        state.projects = (json && json.projects) || [];
-        state.files = {};
-        showEditor();
-        renderList();
+        var json = JSON.parse(b64ToUtf8(data.content) || '{}');
+        state.data.services = json.services || [];
+        state.data.projects = json.projects || [];
+        state.files = { services:{}, projects:{} };
+        $('authCard').classList.add('hidden');
+        $('editor').classList.remove('hidden');
+        $('saveBar').classList.remove('hidden');
+        renderAll();
         clearStatus();
       })
       .catch(function(e){ status(e.message || 'Lỗi tải nội dung.', 'err'); });
   }
 
-  function showEditor(){
-    $('authCard').classList.add('hidden');
-    $('editor').classList.remove('hidden');
-    $('saveBar').classList.remove('hidden');
-  }
+  // ---------- render ----------
+  function renderAll(){ renderSection('services'); renderSection('projects'); }
 
-  // ---------- render editor list ----------
-  function renderList(){
-    var box = $('projList');
+  function renderSection(sec){
+    var cfg = SECTIONS[sec];
+    var box = $('list-'+sec);
+    var items = state.data[sec];
     box.innerHTML = '';
-    state.projects.forEach(function(p, i){
+    items.forEach(function(it, i){
+      var hasImg = it.image && String(it.image).trim() !== '';
+      var fieldsHTML = cfg.fields.map(function(f){
+        return '<div'+(f.small?' style="max-width:200px"':'')+'>'+
+          '<label>'+f.label+'</label>'+
+          '<input type="text" data-sec="'+sec+'" data-f="'+f.name+'" data-i="'+i+'" value="'+esc(it[f.name])+'">'+
+        '</div>';
+      }).join('');
       var div = document.createElement('div');
-      div.className = 'proj';
-      var hasImg = p.image && String(p.image).trim() !== '';
+      div.className = 'item';
       div.innerHTML =
-        '<div class="proj-head">'+
-          '<span class="idx">Dự án #'+(i+1)+'</span>'+
+        '<div class="item-head">'+
+          '<span class="idx">'+cfg.label+' #'+(i+1)+'</span>'+
           '<span class="tools">'+
-            '<button class="btn btn-ghost btn-sm" data-act="up" data-i="'+i+'">▲</button>'+
-            '<button class="btn btn-ghost btn-sm" data-act="down" data-i="'+i+'">▼</button>'+
-            '<button class="btn btn-danger btn-sm" data-act="del" data-i="'+i+'">Xóa</button>'+
+            '<button class="btn btn-ghost btn-sm" data-act="up" data-sec="'+sec+'" data-i="'+i+'">▲</button>'+
+            '<button class="btn btn-ghost btn-sm" data-act="down" data-sec="'+sec+'" data-i="'+i+'">▼</button>'+
+            '<button class="btn btn-danger btn-sm" data-act="del" data-sec="'+sec+'" data-i="'+i+'">Xóa</button>'+
           '</span>'+
         '</div>'+
-        '<div class="row">'+
-          '<div><label>Tên công trình</label><input type="text" data-f="title" data-i="'+i+'" value="'+esc(p.title)+'"></div>'+
-          '<div style="max-width:200px"><label>Nhãn (loại)</label><input type="text" data-f="category" data-i="'+i+'" value="'+esc(p.category)+'"></div>'+
-        '</div>'+
+        '<div class="row">'+fieldsHTML+'</div>'+
         '<label>Mô tả</label>'+
-        '<textarea data-f="description" data-i="'+i+'">'+esc(p.description)+'</textarea>'+
+        '<textarea data-sec="'+sec+'" data-f="description" data-i="'+i+'">'+esc(it.description)+'</textarea>'+
         '<div class="thumb-area">'+
-          '<div class="thumb" id="thumb'+i+'">'+
-            (hasImg ? '<img src="'+esc(p.image)+'" alt="">' : (esc(p.category)||'CKM'))+
+          '<div class="thumb" id="thumb-'+sec+'-'+i+'">'+
+            (hasImg ? '<img src="'+esc(it.image)+'" alt="">' : esc(cfg.placeholder(it)))+
           '</div>'+
           '<div class="thumb-controls">'+
-            '<label>Ảnh công trình</label>'+
-            '<input type="file" accept="image/*" data-act="file" data-i="'+i+'">'+
+            '<label>Ảnh</label>'+
+            '<input type="file" accept="image/*" data-act="file" data-sec="'+sec+'" data-i="'+i+'">'+
             '<div style="margin-top:6px" class="muted">hoặc dán đường dẫn ảnh:</div>'+
-            '<input type="text" data-f="image" data-i="'+i+'" value="'+esc(p.image)+'" placeholder="https://... hoặc images/ten-anh.jpg">'+
-            '<div style="margin-top:6px"><button class="btn btn-danger btn-sm" data-act="clearimg" data-i="'+i+'">Xóa ảnh (dùng ô giữ chỗ)</button></div>'+
+            '<input type="text" data-sec="'+sec+'" data-f="image" data-i="'+i+'" value="'+esc(it.image)+'" placeholder="https://... hoặc images/ten-anh.jpg">'+
+            '<div style="margin-top:6px"><button class="btn btn-danger btn-sm" data-act="clearimg" data-sec="'+sec+'" data-i="'+i+'">Xóa ảnh (dùng ô giữ chỗ)</button></div>'+
           '</div>'+
         '</div>';
       box.appendChild(div);
     });
   }
 
-  // ---------- editor events ----------
-  $('projList').addEventListener('input', function(e){
-    var t = e.target, i = t.getAttribute('data-i'), f = t.getAttribute('data-f');
-    if(i==null) return; i = +i;
-    if(f){
-      state.projects[i][f] = t.value;
-      if(f==='image'){ // manual URL edit -> drop any pending file, refresh thumb
-        delete state.files[i];
-        updateThumb(i);
-      }
-      if(f==='category'){ updateThumb(i); }
-    }
+  function updateThumb(sec, i){
+    if(state.files[sec][i]) return;
+    var it = state.data[sec][i], th = $('thumb-'+sec+'-'+i); if(!th) return;
+    if(it.image && it.image.trim()) th.innerHTML = '<img src="'+esc(it.image)+'" alt="">';
+    else th.innerHTML = esc(SECTIONS[sec].placeholder(it));
+  }
+
+  // ---------- events (delegated on editor) ----------
+  var editor = $('editor');
+
+  editor.addEventListener('input', function(e){
+    var t=e.target, sec=t.getAttribute('data-sec'), f=t.getAttribute('data-f'), i=t.getAttribute('data-i');
+    if(sec==null || f==null || i==null) return; i=+i;
+    state.data[sec][i][f] = t.value;
+    if(f==='image'){ delete state.files[sec][i]; updateThumb(sec,i); }
+    if(f==='icon' || f==='category'){ updateThumb(sec,i); }
   });
 
-  $('projList').addEventListener('change', function(e){
-    var t = e.target, act = t.getAttribute('data-act'), i = +t.getAttribute('data-i');
-    if(act==='file' && t.files && t.files[0]){
-      var file = t.files[0];
-      if(file.size > 8*1024*1024){ status('Ảnh quá lớn (>8MB). Vui lòng chọn ảnh nhỏ hơn.', 'err'); t.value=''; return; }
-      state.files[i] = file;
-      fileToDataURL(file).then(function(url){
-        var th = $('thumb'+i); th.innerHTML = '<img src="'+url+'" alt="">';
-      });
-    }
+  editor.addEventListener('change', function(e){
+    var t=e.target;
+    if(t.getAttribute('data-act')!=='file' || !t.files || !t.files[0]) return;
+    var sec=t.getAttribute('data-sec'), i=+t.getAttribute('data-i'), file=t.files[0];
+    if(file.size > 8*1024*1024){ status('Ảnh quá lớn (>8MB). Chọn ảnh nhỏ hơn.', 'err'); t.value=''; return; }
+    state.files[sec][i] = file;
+    fileToDataURL(file).then(function(url){
+      var th=$('thumb-'+sec+'-'+i); if(th) th.innerHTML='<img src="'+url+'" alt="">';
+    });
   });
 
-  $('projList').addEventListener('click', function(e){
-    var b = e.target.closest('button'); if(!b) return;
-    var act = b.getAttribute('data-act'); var i = +b.getAttribute('data-i');
+  editor.addEventListener('click', function(e){
+    var b=e.target.closest('button'); if(!b) return;
+    var add=b.getAttribute('data-add');
+    if(add){
+      state.data[add].push(SECTIONS[add].newItem());
+      renderSection(add);
+      b.scrollIntoView({block:'center'});
+      return;
+    }
+    var act=b.getAttribute('data-act'); if(!act) return;
+    var sec=b.getAttribute('data-sec'), i=+b.getAttribute('data-i');
+    var arr=state.data[sec];
     if(act==='del'){
-      if(confirm('Xóa dự án này?')){ state.projects.splice(i,1); reindexFiles(i,'del'); renderList(); }
-    } else if(act==='up' && i>0){
-      swap(i,i-1); renderList();
-    } else if(act==='down' && i<state.projects.length-1){
-      swap(i,i+1); renderList();
-    } else if(act==='clearimg'){
-      state.projects[i].image=''; delete state.files[i]; renderList();
-    }
+      if(confirm('Xóa mục này?')){ arr.splice(i,1); reindexFiles(sec,i); renderSection(sec); }
+    } else if(act==='up' && i>0){ swap(sec,i,i-1); renderSection(sec); }
+    else if(act==='down' && i<arr.length-1){ swap(sec,i,i+1); renderSection(sec); }
+    else if(act==='clearimg'){ arr[i].image=''; delete state.files[sec][i]; renderSection(sec); }
   });
 
-  function swap(a,b){
-    var t=state.projects[a]; state.projects[a]=state.projects[b]; state.projects[b]=t;
-    var fa=state.files[a], fb=state.files[b];
-    delete state.files[a]; delete state.files[b];
-    if(fb) state.files[a]=fb; if(fa) state.files[b]=fa;
+  function swap(sec,a,b){
+    var arr=state.data[sec]; var t=arr[a]; arr[a]=arr[b]; arr[b]=t;
+    var fs=state.files[sec], fa=fs[a], fb=fs[b];
+    delete fs[a]; delete fs[b];
+    if(fb) fs[a]=fb; if(fa) fs[b]=fa;
   }
-  function reindexFiles(removed){
-    var nf={}; Object.keys(state.files).forEach(function(k){ k=+k; if(k<removed) nf[k]=state.files[k]; else if(k>removed) nf[k-1]=state.files[k]; });
-    state.files=nf;
+  function reindexFiles(sec, removed){
+    var fs=state.files[sec], nf={};
+    Object.keys(fs).forEach(function(k){ k=+k; if(k<removed) nf[k]=fs[k]; else if(k>removed) nf[k-1]=fs[k]; });
+    state.files[sec]=nf;
   }
-  function updateThumb(i){
-    if(state.files[i]) return; // pending file preview stays
-    var p=state.projects[i], th=$('thumb'+i); if(!th) return;
-    if(p.image && p.image.trim()) th.innerHTML='<img src="'+esc(p.image)+'" alt="">';
-    else th.innerHTML = esc(p.category)||'CKM';
-  }
-
-  $('addBtn').addEventListener('click', function(){
-    state.projects.push({title:'Công trình mới', category:'Mới', description:'', image:''});
-    renderList();
-    window.scrollTo(0, document.body.scrollHeight);
-  });
 
   // ---------- save ----------
   function save(){
     var btn=$('saveBtn'); btn.disabled=true;
-    var pending = Object.keys(state.files);
-    status('Đang tải ảnh lên ('+pending.length+')...');
-    // upload pending images sequentially
-    var chain = Promise.resolve();
-    pending.forEach(function(k){
-      chain = chain.then(function(){
-        var i=+k, file=state.files[i];
-        var fname = 'images/'+Date.now()+'-'+safeName(file.name || ('anh'+i+'.jpg'));
-        return fileToB64(file).then(function(b64){
-          return api('contents/'+fname, {
-            method:'PUT',
-            body: JSON.stringify({ message:'Tải ảnh: '+fname, content:b64, branch:CFG.branch })
-          });
+    var uploads=[];
+    ['services','projects'].forEach(function(sec){
+      Object.keys(state.files[sec]).forEach(function(k){ uploads.push({sec:sec, i:+k, file:state.files[sec][k]}); });
+    });
+
+    status(uploads.length ? ('Đang tải ảnh lên ('+uploads.length+')...') : 'Đang lưu...');
+    var chain=Promise.resolve();
+    uploads.forEach(function(u){
+      chain=chain.then(function(){
+        var fname='images/'+Date.now()+'-'+safeName(u.file.name||('anh.jpg'));
+        return fileToB64(u.file).then(function(b64){
+          return api('contents/'+fname, { method:'PUT', body: JSON.stringify({ message:'Tải ảnh: '+fname, content:b64, branch:CFG.branch }) });
         }).then(function(r){
           if(!r.ok) return r.text().then(function(t){ throw new Error('Không tải được ảnh: '+t); });
-          state.projects[i].image = fname; // relative path served by Pages
+          state.data[u.sec][u.i].image = fname;
         });
       });
     });
 
     chain.then(function(){
       status('Đang lưu nội dung...');
-      var json = JSON.stringify({ projects: state.projects }, null, 2);
+      var json = JSON.stringify({ services: state.data.services, projects: state.data.projects }, null, 2);
       var body = { message:'Cập nhật nội dung website', content: utf8ToB64(json), branch: CFG.branch };
       if(state.sha) body.sha = state.sha;
       return api('contents/'+CFG.path, { method:'PUT', body: JSON.stringify(body) });
@@ -327,8 +356,8 @@
       return r.json();
     }).then(function(res){
       if(res.content && res.content.sha) state.sha = res.content.sha;
-      state.files = {};
-      renderList();
+      state.files = { services:{}, projects:{} };
+      renderAll();
       status('✔ Đã lưu! Website sẽ cập nhật sau khoảng 1 phút.', 'ok');
       btn.disabled=false;
     }).catch(function(e){
@@ -337,24 +366,21 @@
     });
   }
 
-  // ---------- top-level buttons ----------
+  // ---------- top-level ----------
   $('connectBtn').addEventListener('click', function(){
-    var v = $('tokenInput').value.trim();
+    var v=$('tokenInput').value.trim();
     if(!v){ status('Vui lòng dán khóa truy cập.', 'err'); return; }
     localStorage.setItem(TOKEN_KEY, v);
     loadContent();
   });
   $('reloadBtn').addEventListener('click', function(){
-    if(Object.keys(state.files).length && !confirm('Tải lại sẽ mất các thay đổi chưa lưu. Tiếp tục?')) return;
+    var pending = Object.keys(state.files.services).length + Object.keys(state.files.projects).length;
+    if(pending && !confirm('Tải lại sẽ mất các thay đổi chưa lưu. Tiếp tục?')) return;
     loadContent();
   });
   $('saveBtn').addEventListener('click', save);
-  $('logoutBtn').addEventListener('click', function(){
-    localStorage.removeItem(TOKEN_KEY);
-    location.reload();
-  });
+  $('logoutBtn').addEventListener('click', function(){ localStorage.removeItem(TOKEN_KEY); location.reload(); });
 
-  // auto-connect if token stored
   if(token()){ $('tokenInput').value=''; loadContent(); }
 })();
 </script>

@@ -1,4 +1,42 @@
 {
+  "services": [
+    {
+      "icon": "⚙",
+      "title": "Thiết bị cơ khí",
+      "description": "Gia công, chế tạo thiết bị cơ khí công nghiệp: bể tuyển nổi DAF, máy tách rác trống quay, song chắn rác, bơm, đường ống inox và thép không gỉ.",
+      "image": ""
+    },
+    {
+      "icon": "🔥",
+      "title": "Hàn kết cấu",
+      "description": "Thi công hàn kết cấu thép, bồn chứa inox, khung giá đỡ, đường ống áp lực theo tiêu chuẩn kỹ thuật. Đội ngũ thợ hàn lành nghề, kiểm tra chất lượng nghiêm ngặt.",
+      "image": ""
+    },
+    {
+      "icon": "⚡",
+      "title": "Tủ điện điều khiển",
+      "description": "Thiết kế và lắp ráp tủ điện điều khiển hệ thống xử lý môi trường: tủ MCC, tủ PLC, tủ SCADA, tủ tự động hóa cho nhà máy xử lý nước thải và khí thải.",
+      "image": ""
+    },
+    {
+      "icon": "💧",
+      "title": "Xử lý nước thải",
+      "description": "Thiết kế và thi công hệ thống xử lý nước thải công nghiệp, dệt nhuộm, thực phẩm, y tế. Đảm bảo đạt chuẩn QCVN trước khi xả ra môi trường.",
+      "image": ""
+    },
+    {
+      "icon": "🌿",
+      "title": "Xử lý khí thải",
+      "description": "Lắp đặt hệ thống xử lý khí thải lò hơi, khí thải sản xuất. Giảm thiểu ô nhiễm không khí, đáp ứng tiêu chuẩn môi trường Việt Nam và quốc tế.",
+      "image": ""
+    },
+    {
+      "icon": "🔬",
+      "title": "Tư vấn môi trường",
+      "description": "Tư vấn lập hồ sơ môi trường, quan trắc định kỳ, nâng cấp và sửa chữa hệ thống XLMT hiện có. Hỗ trợ doanh nghiệp tuân thủ pháp luật môi trường.",
+      "image": ""
+    }
+  ],
   "projects": [
     {
       "title": "Máy tách rác trống quay CKM",
